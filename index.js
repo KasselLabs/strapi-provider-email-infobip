@@ -7,8 +7,12 @@ const formatEmailToFormData = (from, replyTo, to, subject, text, html) => {
   emailData.append('replyTo', replyTo)
   emailData.append('to', to)
   emailData.append('subject', subject)
-  emailData.append('text', text)
-  emailData.append('html', html)
+  if (text) {
+    emailData.append('text', text)
+  }
+  if (html) {
+    emailData.append('html', html)
+  }
   return emailData
 }
 

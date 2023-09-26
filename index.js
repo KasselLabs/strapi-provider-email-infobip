@@ -1,11 +1,14 @@
 const axios = require('axios')
 const FormData = require('form-data')
 
-const formatEmailToFormData = (from, replyTo, to, subject, text, html) => {
+const formatEmailToFormData = (from, replyTo, to, bcc, subject, text, html) => {
   const emailData = new FormData()
   emailData.append('from', from)
   emailData.append('replyTo', replyTo)
   emailData.append('to', to)
+  if (bcc) {
+    emailData.append('bcc', bcc)
+  }
   emailData.append('subject', subject)
   if (text) {
     emailData.append('text', text)
@@ -24,10 +27,18 @@ module.exports = {
         const {
           from = settings.defaultFrom,
           replyTo = settings.defaultReplyTo,
-          to, subject, text, html
+          to, bcc, subject, text, html
         } = options
 
-        const emailData = formatEmailToFormData(from, replyTo, to, subject, text, html)
+        const emailData = formatEmailToFormData(
+          from,
+          replyTo,
+          to,
+          bcc,
+          subject,
+          text,
+          html
+        )
 
         try {
           await axios.request({

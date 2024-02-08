@@ -45,19 +45,15 @@ module.exports = {
           html
         )
 
-        try {
-          await axios.request({
-            url: `https://${baseURL}/email/3/send`,
-            method: 'POST',
-            headers: {
-              Authorization: `App ${apiKey}`,
-              ...emailData.getHeaders()
-            },
-            data: emailData
-          })
-        } catch (error) {
-          console.log(error.response.data)
-        }
+        await axios.request({
+          url: `https://${baseURL}/email/3/send`,
+          method: 'POST',
+          headers: {
+            Authorization: `App ${apiKey}`,
+            ...emailData.getHeaders()
+          },
+          data: emailData
+        })
       }
     }
   }

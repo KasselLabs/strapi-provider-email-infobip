@@ -4,12 +4,17 @@ const FormData = require('form-data')
 const formatEmailToFormData = (from, replyTo, to, bcc, subject, text, html) => {
   const emailData = new FormData()
   emailData.append('from', from)
-  emailData.append('replyTo', replyTo)
   emailData.append('to', to)
+
+  if (replyTo) {
+    emailData.append('replyTo', replyTo)
+  }
   if (bcc) {
     emailData.append('bcc', bcc)
   }
-  emailData.append('subject', subject)
+  if (subject) {
+    emailData.append('subject', subject)
+  }
   if (text) {
     emailData.append('text', text)
   }
